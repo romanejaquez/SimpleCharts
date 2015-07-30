@@ -90,13 +90,34 @@ SimpleCharts.DonutChart = function() {
         clearChart();
 		createChartBackground();
         
-        var currentAngle = 0;
+        // get a copy of the original array of values
+        var chartValues = settings.values;
         
-        for(var i = 0; i < settings.values.length; i++) {
-            var currentValue = settings.values[i];
-            chartSettings.lineForegroundColor = currentValue.lineForegroundColor;
-            var updatedAngle = createMultiChartForeground(currentValue.value, currentAngle);
-            currentAngle += updatedAngle;
+        // sort them first in ascending order
+        chartValues.sort(function(firstValue, secondValue) {
+            return firstValue.value + secondValue.value; 
+        });
+        
+        // every subsequent value will contain the previous one, 
+        // so they show in a stacked fashion
+        var currentValue = 0;
+        var previousValue = 0;
+        for(var i = 0; i < chartValues.length; i++) {
+            currentValue = chartValues[i];
+            previousValue += currentValue.value;
+            currentValue.value = previousValue;
+        }
+        
+        // re-sort them again
+        chartValues.sort(function(firstValue, secondValue) {
+            return firstValue.value + secondValue.value; 
+        });
+
+        // now, render the corresponding
+        for(var i = 0; i < chartValues.length; i++) {
+            var cValue = chartValues[i];
+            chartSettings.lineForegroundColor = cValue.lineForegroundColor;
+            createChartForeground(cValue.value);
         }
     };
     
@@ -150,21 +171,6 @@ SimpleCharts.DonutChart = function() {
 		context.lineWidth = chartSettings.lineWidth;
 		context.strokeStyle = chartSettings.lineForegroundColor;
 		context.stroke();
-	}
-    
-    // inner function that creates the chart's foreground ring
-	// value: the value to be updated to
-	function createMultiChartForeground(value, currentAngle) {
-		var minVal = 2 * (value)/(chartSettings.maxValue);
-		minVal = value == chartSettings.maxValue ? DEFAULT_VALUE : minVal;
-		var angle = ((minVal + currentAngle) * Math.PI);
-        var endAngle = (2 * Math.PI);
-		context.beginPath();
-		context.arc(centerX, centerY, radius, angle, endAngle, true);
-		context.lineWidth = chartSettings.lineWidth;
-		context.strokeStyle = chartSettings.lineForegroundColor;
-		context.stroke();
-        return angle;
 	}
 	
 	// creates the donut chart with a single value
