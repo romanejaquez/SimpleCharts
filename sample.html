@@ -66,6 +66,22 @@
                     { value: 2, lineForegroundColor: "#0699AA" }
                 ]
             });
+            
+            // with the right set of values, out of a donut chart you can get a pie chart!
+            var donut5 = new SimpleCharts.DonutChart();
+            donut5.createMultiValueDonutChart({
+                id: "chart5",
+                radius: 40,     // give an amount to the radius
+                lineWidth: 80,  // make the line width twice of the radius
+                size: 160,      // make the size to be (radius * 2) + lineWidth and you get a nice pie chart
+                lineBackgroundColor: "#FFD909",
+                values: [
+                    { value: 15, lineForegroundColor: "#f38700" },
+                    { value: 10, lineForegroundColor: "#69b751" },
+                    { value: 2, lineForegroundColor: "#0699AA" },
+                    { value: 10, lineForegroundColor: "#9B344E" }
+                ]
+            });
         }
     </script>
 </head>
@@ -74,5 +90,6 @@
     <div id="chart2" class="chart"></div>
     <div id="chart3" class="chart"></div>
     <div id="chart4" class="chart"></div>
+    <div id="chart5" class="chart"></div>
 </body>
 </html>
