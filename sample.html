@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    body {
+        font-family: "Helvetica";   
+    }
+        
+    .chart {
+        float: left;
+    }
+        
+    </style>
+    <script src="simplecharts.js"></script>
+    <script>
+        
+        function init() {
+         
+            // create a donut chart passing a settings object
+            var donut1 = new SimpleCharts.DonutChart();
+            donut1.createSingleValueDonutChart({
+                
+                id: "chart1",
+                value: 46,
+                maxValue: 100,
+                label: "complete",
+                size: 200,
+                lineWidth: 30,
+                radius: 70,
+                lineForegroundColor: "#69b751",
+                lineBackgroundColor: "#e7e7e7",
+                showPercent: true,
+                showInitialValueAnimated: true,
+                labelFontSize: 15,
+                numberFontSize: 30
+            });
+            
+            donutChart2 = new SimpleCharts.DonutChart();
+            donutChart2.createSingleValueDonutChart({
+                id: "chart2",
+                value: 68,
+                maxValue: 100,
+                label: "complete",
+                size: 200,
+                lineWidth: 30,
+                radius: 70,
+                lineForegroundColor: "#f38700",
+                lineBackgroundColor: "#e7e7e7",
+                showPercent: true,
+                showInitialValueAnimated: true,
+                labelFontSize: 15,
+                numberFontSize: 30
+            });
+            
+            // create it with defaults, just providing the id of the container 
+            // that will be used for the chart creation
+            var donut3 = new SimpleCharts.DonutChart();
+            donut3.createSingleValueDonutChart({ id: "chart3" });
+            
+            var donut4 = new SimpleCharts.DonutChart();
+            donut4.createMultiValueDonutChart({
+                id: "chart4",
+                values: [
+                    { value: 15, lineForegroundColor: "#f38700" },
+                    { value: 10, lineForegroundColor: "#69b751" },
+                    { value: 2, lineForegroundColor: "#0699AA" }
+                ]
+            });
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="chart1" class="chart"></div>
+    <div id="chart2" class="chart"></div>
+    <div id="chart3" class="chart"></div>
+    <div id="chart4" class="chart"></div>
+</body>
+</html>
